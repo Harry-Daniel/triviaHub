@@ -7,7 +7,7 @@ const RootLayout = () => {
     <View>
       <View className="flex-1">
         <Slot />
-        <NavBar />
+        {/* <NavBar /> */}
       </View>
     </View>
   );
