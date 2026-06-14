@@ -6,15 +6,17 @@ const { width, height } = Dimensions.get("screen");
 const Home = () => {
   return (
     <View
-      className="justify-center items-center bg-[#0F084B] relative"
+      className="items-center bg-[#0F084B] relative p-4"
       style={{ width: width, height: height }}
     >
-      <View className="bg-[#A6CFD5] w-[40rem] h-[40rem] rounded-full absolute -top-96"></View>
+      <View className="bg-[#A6CFD5] w-[40rem] h-[40rem] rounded-full absolute -top-[400px] m-auto"></View>
+      <Text className="absolute p-4 text-[#0F084B] text-2xl font-bold top-20">
+        QUIZ HUB
+      </Text>
       <View>
-        <Text className="text-[#C2E7D9] text-2xl">
-          Welcome to the Quiz Hub!
-        </Text>
-        <TextInput placeholder="How many questions?"/>
+        <View className="w-96 h-20 bg-blue-50 mt-52 rounded-md">
+          <Text>Hello</Text>
+        </View>
       </View>
     </View>
   );
