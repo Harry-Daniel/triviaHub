@@ -14,8 +14,17 @@ const Home = () => {
         QUIZ HUB
       </Text>
       <View>
-        <View className="w-96 h-20 bg-blue-50 mt-52 rounded-md">
-          <Text>Hello</Text>
+        <View className="w-96 h-20 bg-[#A6CFD5] mt-52 rounded-md justify-center flex flex-row gap-x-12 p-4">
+          <View className="justify-center items-center">
+            <Text className="text-xs text-[#0F084B]">Number of Questions</Text>
+            <Text className="text-3xl font-bold text-[#0F084B]">10</Text>
+            <Text className="text-xs text-[#0F084B]">Tap to change</Text>
+          </View>
+          <View className="  border-l border-l-[#0F084B] "></View>
+          <View className="justify-center items-center">
+            <Text className="text-xs text-[#0F084B]">High Score</Text>
+            <Text className="text-3xl font-bold text-[#0F084B]">50</Text>
+          </View>
         </View>
       </View>
     </View>
