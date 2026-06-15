@@ -14,7 +14,7 @@ const { width, height } = Dimensions.get("screen");
 const Home = () => {
   return (
     <View
-      className="items-center bg-[#0F084B] relative p-4"
+      className="items-center bg-[#0F084B] relative p-4 gap-y-4"
       style={{ width: width, height: height }}
     >
       <View className="bg-[#A6CFD5] w-[40rem] h-[40rem] rounded-full absolute -top-[400px] m-auto"></View>
@@ -23,6 +23,7 @@ const Home = () => {
       </Text>
 
       <QuizSetup />
+      <Text className="text-[#A6CFD5]">Select a Category</Text>
     </View>
   );
 };
