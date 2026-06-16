@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import QuizSetup from "../components/quizSetup";
 
 const { width, height } = Dimensions.get("screen");
@@ -24,6 +26,16 @@ const Home = () => {
 
       <QuizSetup />
       <Text className="text-[#A6CFD5]">Select a Category</Text>
+      <View>
+        <View className="w-96 h-20 bg-[#637081] mt-4 rounded-md items-center justify-center flex flex-row gap-x-8 p-4 relative shadow-2xl shadow-white">
+          <FontAwesome6 name="ellipsis" size={24} color="#A6CFD5" />
+          <Text className="text-white text-2xl">General Knowledge</Text>
+        </View>
+        <View className="w-96 h-20 bg-[#637081] mt-4 rounded-md items-center justify-center flex flex-row gap-x-8 p-4 relative shadow-md">
+          <FontAwesome5 name="brain" size={24} color="#A6CFD5" />
+          <Text className="text-white text-2xl">General Knowledge</Text>
+        </View>
+      </View>
     </View>
   );
 };
