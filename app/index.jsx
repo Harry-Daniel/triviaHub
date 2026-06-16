@@ -1,5 +1,6 @@
 import {
   Dimensions,
+  FlatList,
   StyleSheet,
   Text,
   TextInput,
@@ -9,11 +10,25 @@ import {
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import QuizSetup from "../components/quizSetup";
+import { useState } from "react";
 
 const { width, height } = Dimensions.get("screen");
 
 // Note: In app.json , change the "scheme" to match your project name.
 const Home = () => {
+  const [categoryID, setCategoryID] = useState(1);
+  const category = [
+    {
+      id: 1,
+      title: "All Categories",
+      icon: <FontAwesome6 name="ellipsis" size={24} color="white" />,
+    },
+    {
+      id: 2,
+      title: "General Knowledge",
+      icon: <FontAwesome5 name="brain" size={24} color="white" />,
+    },
+  ];
   return (
     <View
       className="items-center bg-[#0F084B] relative p-4 gap-y-4"
@@ -27,14 +42,19 @@ const Home = () => {
       <QuizSetup />
       <Text className="text-[#A6CFD5]">Select a Category</Text>
       <View>
-        <View className="w-96 h-20 bg-[#637081] mt-4 rounded-md items-center justify-center flex flex-row gap-x-8 p-4 relative shadow-2xl shadow-white">
-          <FontAwesome6 name="ellipsis" size={24} color="#A6CFD5" />
-          <Text className="text-white text-2xl">General Knowledge</Text>
-        </View>
-        <View className="w-96 h-20 bg-[#637081] mt-4 rounded-md items-center justify-center flex flex-row gap-x-8 p-4 relative shadow-md">
-          <FontAwesome5 name="brain" size={24} color="#A6CFD5" />
-          <Text className="text-white text-2xl">General Knowledge</Text>
-        </View>
+        <FlatList
+          data={category}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() => setCategoryID(item.id)}
+              className={`w-96 h-20  ${item.id === categoryID ? "bg-[#A6CFD5] shadow-blue-50" : "bg-[#637081]"} mt-4 rounded-md items-center  flex flex-row gap-x-8 px-8 py-4 relative shadow-md `}
+            >
+              {item.icon}
+              <Text className="text-white text-2xl">{item.title}</Text>
+            </TouchableOpacity>
+          )}
+        />
       </View>
     </View>
   );
