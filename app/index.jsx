@@ -1,5 +1,3 @@
-
-
 import { useState } from "react";
 import {
   Dimensions,
@@ -30,6 +28,10 @@ const Home = () => {
       </View>
       <Text className="text-[#A6CFD5]">Select a Category</Text>
       <CategorySelect />
+      <TouchableOpacity className="bg-[#A6CFD5] px-8 py-4 rounded-md mt-4">
+        {" "}
+        <Text className="text-[#0F084B] font-bold"> Start Quiz</Text>
+      </TouchableOpacity>
     </View>
   );
 };
