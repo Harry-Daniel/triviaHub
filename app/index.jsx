@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import QuizSetup from "../components/quizSetup";
+import TriviaSetup from "../components/triviaSetup";
 import CategorySelect from "../components/categorySelect";
 
 const { width, height } = Dimensions.get("screen");
@@ -21,10 +21,10 @@ const Home = () => {
     >
       <View className="bg-[#A6CFD5] w-[40rem] h-[40rem] rounded-full absolute -top-[400px] m-auto"></View>
       <Text className="absolute p-4 text-[#0F084B] text-2xl font-bold top-20">
-        QUIZ HUB
+        TRIVIA HUB
       </Text>
       <View className="z-10 shadow-md">
-        <QuizSetup />
+        <TriviaSetup />
       </View>
       <Text className="text-[#A6CFD5]">Select a Category</Text>
       <CategorySelect />

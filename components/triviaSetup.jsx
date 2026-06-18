@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { useState } from "react";
 
-const QuizSetup = () => {
+const TriviaSetup = () => {
   const [numQuestions, setNumQuestions] = useState(15);
   const [showQuestionOptions, setShowQuestionOptions] = useState(false);
   return (
@@ -57,4 +57,4 @@ const QuizSetup = () => {
   );
 };
 
-export default QuizSetup;
+export default TriviaSetup;
