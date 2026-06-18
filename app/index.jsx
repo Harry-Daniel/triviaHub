@@ -38,8 +38,9 @@ const Home = () => {
       <Text className="absolute p-4 text-[#0F084B] text-2xl font-bold top-20">
         QUIZ HUB
       </Text>
-
-      <QuizSetup />
+      <View className="z-10 shadow-md">
+        <QuizSetup />
+      </View>
       <Text className="text-[#A6CFD5]">Select a Category</Text>
       <View>
         <FlatList

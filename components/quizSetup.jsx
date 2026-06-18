@@ -18,7 +18,7 @@ const QuizSetup = () => {
           <Text className="text-xs text-[#0F084B]">Tap to change</Text>
         </TouchableOpacity>
         {showQuestionOptions && (
-          <View className="absolute -bottom-[110px] left-6 rounded-md w-48 bg-[#A6CFD5] px-4 justify-center items-center">
+          <View className="absolute -bottom-[110px] left-6 rounded-md w-48 bg-[#A6CFD5] px-4 justify-center items-center border border-[#0F084B]">
             <TouchableOpacity
               onPress={() => {
                 setNumQuestions(10);
