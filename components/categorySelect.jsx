@@ -11,8 +11,7 @@ import {
   SimpleLineIcons,
 } from "@expo/vector-icons";
 
-const CategorySelect = () => {
-  const [categoryID, setCategoryID] = useState("any");
+const CategorySelect = ({categoryID, setCategoryID}) => {
   const category = [
     {
       id: "any",
