@@ -7,14 +7,18 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { useRouter } from "expo-router";
 import TriviaSetup from "../components/triviaSetup";
 import CategorySelect from "../components/categorySelect";
 import getQuestions from "../utilities/getQuestions";
+import { useQuiz } from "../context/QuizContext";
 
 const { width, height } = Dimensions.get("screen");
 
 // Note: In app.json , change the "scheme" to match your project name.
 const Home = () => {
+  const router = useRouter();
+  const { startQuiz } = useQuiz();
   const [categoryID, setCategoryID] = useState("any");
   const [numQuestions, setNumQuestions] = useState(10);
 
@@ -40,8 +44,9 @@ const Home = () => {
       <CategorySelect categoryID={categoryID} setCategoryID={setCategoryID} />
       <TouchableOpacity
         onPress={async () => {
-          const questions = await getQuestions(numQuestions, categoryID);
-          console.log(questions);
+          const data = await getQuestions(numQuestions, categoryID);
+          startQuiz(data?.results ?? []);
+          router.push("/quiz");
         }}
         className="bg-[#A6CFD5] px-8 py-4 rounded-md mt-4"
       >
