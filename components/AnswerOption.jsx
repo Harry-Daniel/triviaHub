@@ -34,8 +34,8 @@ const AnswerOption = ({ text, isCorrectAnswer, isSelected, revealed, onPress }) 
 
   if (revealed) {
     if (isCorrectAnswer) {
-      face = "bg-[#F2C14E]";
-      edge = "border-b-[#C9962F]";
+      face = "bg-[#4CAF7D]";
+      edge = "border-b-[#3B8861]";
       textColor = "text-[#0F084B]";
       icon = <AntDesign name="check" size={18} color="#0F084B" />;
     } else if (isSelected) {

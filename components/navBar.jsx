@@ -31,13 +31,13 @@ const NavBar = () => {
               size={20}
               color={pathname === homePathname ? "white":"#ccc9c9" }
             />
-            <Text className={`${pathname===homePathname?"text-white":"text-[#ccc9c9]"} text-xs`}> Home</Text>
+            <Text className={`${pathname===homePathname?"text-white":"text-[#ccc9c9]"} font-mono text-xs`}> Home</Text>
           </TouchableOpacity>
         </View>
         <View>
           <TouchableOpacity onPress={()=>handlePress("/profile")} className="justify-center items-center gap-1">
             <AntDesign name="user" size={20} color={pathname === profilePathname ?"white": "#ccc9c9" } />
-            <Text className={`${pathname===profilePathname?"text-[#ccc9c9]":"text-white"} text-xs`}>  Profile</Text>
+            <Text className={`${pathname===profilePathname?"text-[#ccc9c9]":"text-white"} font-mono text-xs`}>  Profile</Text>
           </TouchableOpacity>
         </View>
       </View>

@@ -31,7 +31,7 @@ const Home = () => {
         pointerEvents="none"
         className="bg-[#A6CFD5] w-[40rem] h-[40rem] rounded-full absolute -top-[400px] m-auto"
       />
-      <Text className="absolute p-4 text-[#0F084B] text-2xl font-bold top-20">
+      <Text className="absolute p-4 text-[#0F084B] text-2xl font-display top-20">
         TRIVIA HUB
       </Text>
       <View className="z-10 shadow-md">
@@ -40,7 +40,9 @@ const Home = () => {
           setNumQuestions={setNumQuestions}
         />
       </View>
-      <Text className="text-[#A6CFD5]">Select a Category</Text>
+      <Text className="font-mono text-[#A6CFD5] text-xs uppercase tracking-widest">
+        Select a category
+      </Text>
       <CategorySelect categoryID={categoryID} setCategoryID={setCategoryID} />
       <TouchableOpacity
         onPress={async () => {
@@ -50,7 +52,7 @@ const Home = () => {
         }}
         className="bg-[#A6CFD5] px-8 py-4 rounded-md mt-4"
       >
-        <Text className="text-[#0F084B] font-bold"> Start Quiz</Text>
+        <Text className="text-[#0F084B] font-display"> Start Quiz</Text>
       </TouchableOpacity>
     </View>
   );

@@ -3,7 +3,7 @@ import { View } from "react-native";
 const NODE_STYLE = {
   upcoming: { size: 8, bg: "transparent", border: "#637081", borderWidth: 1.5 },
   current: { size: 12, bg: "#0F084B", border: "#A6CFD5", borderWidth: 2 },
-  correct: { size: 8, bg: "#F2C14E", border: "#F2C14E", borderWidth: 0 },
+  correct: { size: 8, bg: "#4CAF7D", border: "#4CAF7D", borderWidth: 0 },
   incorrect: { size: 8, bg: "#E1626B", border: "#E1626B", borderWidth: 0 },
 };
 

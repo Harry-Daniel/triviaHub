@@ -159,7 +159,7 @@ const CategorySelect = ({categoryID, setCategoryID}) => {
             className={`w-96 h-20  ${item.id === categoryID ? "bg-[#A6CFD5] shadow-blue-50" : "bg-[#637081]"} mt-4 rounded-md items-center  flex flex-row gap-x-8 px-8 py-4 relative shadow-md `}
           >
             {item.icon}
-            <Text className="text-white text-2xl">{item.title}</Text>
+            <Text className="font-body-semibold text-white text-2xl">{item.title}</Text>
           </TouchableOpacity>
         )}
       />
