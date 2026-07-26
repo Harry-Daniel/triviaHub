@@ -8,7 +8,6 @@ import * as SplashScreen from "expo-splash-screen";
 import { SpaceGrotesk_700Bold } from "@expo-google-fonts/space-grotesk";
 import { Inter_400Regular, Inter_600SemiBold } from "@expo-google-fonts/inter";
 import { IBMPlexMono_500Medium } from "@expo-google-fonts/ibm-plex-mono";
-import NavBar from "../components/navBar";
 import { QuizProvider } from "../context/QuizContext";
 
 SplashScreen.preventAutoHideAsync();
@@ -34,11 +33,8 @@ const RootLayout = () => {
   return (
     <SafeAreaProvider>
       <QuizProvider>
-        <View>
-          <View className="flex-1">
-            <Slot />
-            {/* <NavBar /> */}
-          </View>
+        <View className="flex-1">
+          <Slot />
         </View>
       </QuizProvider>
     </SafeAreaProvider>

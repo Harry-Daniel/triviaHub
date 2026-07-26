@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  ActivityIndicator,
   Dimensions,
   FlatList,
   StyleSheet,
@@ -21,6 +22,7 @@ const Home = () => {
   const { startQuiz, highScore } = useQuiz();
   const [categoryID, setCategoryID] = useState("any");
   const [numQuestions, setNumQuestions] = useState(10);
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <View
@@ -47,13 +49,23 @@ const Home = () => {
       <CategorySelect categoryID={categoryID} setCategoryID={setCategoryID} />
       <TouchableOpacity
         onPress={async () => {
-          const data = await getQuestions(numQuestions, categoryID);
-          startQuiz(data?.results ?? []);
-          router.push("/quiz");
+          if (isLoading) return;
+          setIsLoading(true);
+          try {
+            const data = await getQuestions(numQuestions, categoryID);
+            startQuiz(data?.results ?? []);
+            router.push("/quiz");
+          } finally {
+            setIsLoading(false);
+          }
         }}
-        className="bg-[#A6CFD5] px-8 py-4 rounded-md mt-4"
+        disabled={isLoading}
+        className={`bg-[#A6CFD5] px-8 py-4 rounded-md mt-4 flex-row items-center gap-x-2 ${isLoading ? "opacity-60" : ""}`}
       >
-        <Text className="text-[#0F084B] font-display"> Start Quiz</Text>
+        {isLoading && <ActivityIndicator color="#0F084B" size="small" />}
+        <Text className="text-[#0F084B] font-display">
+          {isLoading ? "" : " Start Quiz"}
+        </Text>
       </TouchableOpacity>
       <Text className="font-mono text-[#A6CFD5]/50 text-[10px] text-center">
         Questions provided by Open Trivia Database (opentdb.com), licensed under CC BY-SA 4.0
