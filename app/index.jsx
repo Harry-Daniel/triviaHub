@@ -18,7 +18,7 @@ const { width, height } = Dimensions.get("screen");
 // Note: In app.json , change the "scheme" to match your project name.
 const Home = () => {
   const router = useRouter();
-  const { startQuiz } = useQuiz();
+  const { startQuiz, highScore } = useQuiz();
   const [categoryID, setCategoryID] = useState("any");
   const [numQuestions, setNumQuestions] = useState(10);
 
@@ -38,6 +38,7 @@ const Home = () => {
         <TriviaSetup
           numQuestions={numQuestions}
           setNumQuestions={setNumQuestions}
+          highScore={highScore}
         />
       </View>
       <Text className="font-mono text-[#A6CFD5] text-xs uppercase tracking-widest">
@@ -54,6 +55,9 @@ const Home = () => {
       >
         <Text className="text-[#0F084B] font-display"> Start Quiz</Text>
       </TouchableOpacity>
+      <Text className="font-mono text-[#A6CFD5]/50 text-[10px] text-center">
+        Questions provided by Open Trivia Database (opentdb.com), licensed under CC BY-SA 4.0
+      </Text>
     </View>
   );
 };

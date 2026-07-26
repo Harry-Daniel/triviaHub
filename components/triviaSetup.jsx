@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { useState } from "react";
 
-const TriviaSetup = ({ numQuestions, setNumQuestions }) => {
+const TriviaSetup = ({ numQuestions, setNumQuestions, highScore }) => {
   const [showQuestionOptions, setShowQuestionOptions] = useState(false);
   return (
     <View>
@@ -49,7 +49,7 @@ const TriviaSetup = ({ numQuestions, setNumQuestions }) => {
         <View className="  border-l border-l-[#0F084B] "></View>
         <View className="justify-center items-center">
           <Text className="font-mono text-xs text-[#0F084B]">High Score</Text>
-          <Text className="text-3xl font-display text-[#0F084B]">50</Text>
+          <Text className="text-3xl font-display text-[#0F084B]">{highScore}%</Text>
         </View>
       </View>
     </View>

@@ -1,6 +1,7 @@
-import { createContext, useCallback, useContext, useMemo, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { decode } from "html-entities";
 import shuffleArray from "../utilities/shuffleArray";
+import { getHighScore, recordScore } from "../utilities/highScore";
 
 const QuizContext = createContext(null);
 
@@ -27,6 +28,11 @@ export function QuizProvider({ children }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [status, setStatus] = useState("idle"); // idle | active | complete | empty
+  const [highScore, setHighScore] = useState(0);
+
+  useEffect(() => {
+    getHighScore().then(setHighScore);
+  }, []);
 
   const startQuiz = useCallback((rawResults) => {
     if (!rawResults || rawResults.length === 0) {
@@ -82,6 +88,11 @@ export function QuizProvider({ children }) {
     [answers, questions],
   );
 
+  useEffect(() => {
+    if (status !== "complete") return;
+    recordScore(score, questions.length).then(setHighScore);
+  }, [status]);
+
   const value = useMemo(
     () => ({
       questions,
@@ -89,12 +100,24 @@ export function QuizProvider({ children }) {
       answers,
       status,
       score,
+      highScore,
       startQuiz,
       selectAnswer,
       goNext,
       reset,
     }),
-    [questions, currentIndex, answers, status, score, startQuiz, selectAnswer, goNext, reset],
+    [
+      questions,
+      currentIndex,
+      answers,
+      status,
+      score,
+      highScore,
+      startQuiz,
+      selectAnswer,
+      goNext,
+      reset,
+    ],
   );
 
   return <QuizContext.Provider value={value}>{children}</QuizContext.Provider>;
