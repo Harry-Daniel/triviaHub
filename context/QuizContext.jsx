@@ -1,7 +1,12 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { decode } from "html-entities";
 import shuffleArray from "../utilities/shuffleArray";
-import { getHighScore, recordScore } from "../utilities/highScore";
+import {
+  getHighScores,
+  getScoreHistories,
+  recordScore,
+  recordHistory,
+} from "../utilities/highScore";
 
 const QuizContext = createContext(null);
 
@@ -28,13 +33,17 @@ export function QuizProvider({ children }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [status, setStatus] = useState("idle"); // idle | active | complete | empty
-  const [highScore, setHighScore] = useState(0);
+  const [highScores, setHighScores] = useState({ any: 0, easy: 0, medium: 0, hard: 0 });
+  const [scoreHistories, setScoreHistories] = useState({ any: [], easy: [], medium: [], hard: [] });
+  const [quizDifficulty, setQuizDifficulty] = useState("any");
 
   useEffect(() => {
-    getHighScore().then(setHighScore);
+    getHighScores().then(setHighScores);
+    getScoreHistories().then(setScoreHistories);
   }, []);
 
-  const startQuiz = useCallback((rawResults) => {
+  const startQuiz = useCallback((rawResults, difficulty = "any") => {
+    setQuizDifficulty(difficulty);
     if (!rawResults || rawResults.length === 0) {
       setQuestions([]);
       setAnswers([]);
@@ -90,7 +99,8 @@ export function QuizProvider({ children }) {
 
   useEffect(() => {
     if (status !== "complete") return;
-    recordScore(score, questions.length).then(setHighScore);
+    recordScore(score, questions.length, quizDifficulty).then(setHighScores);
+    recordHistory(score, questions.length, quizDifficulty).then(setScoreHistories);
   }, [status]);
 
   const value = useMemo(
@@ -100,7 +110,8 @@ export function QuizProvider({ children }) {
       answers,
       status,
       score,
-      highScore,
+      highScores,
+      scoreHistories,
       startQuiz,
       selectAnswer,
       goNext,
@@ -112,7 +123,8 @@ export function QuizProvider({ children }) {
       answers,
       status,
       score,
-      highScore,
+      highScores,
+      scoreHistories,
       startQuiz,
       selectAnswer,
       goNext,

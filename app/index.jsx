@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Dimensions,
@@ -10,41 +10,74 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import TriviaSetup from "../components/triviaSetup";
-import CategorySelect from "../components/categorySelect";
+import CategorySelect, { CATEGORIES } from "../components/categorySelect";
+import AdvancedOptions from "../components/AdvancedOptions";
 import getQuestions from "../utilities/getQuestions";
 import { useQuiz } from "../context/QuizContext";
+import {
+  getQuizPreferences,
+  setDifficultyPreference,
+  setGameTypePreference,
+} from "../utilities/quizPreferences";
 
 const { width, height } = Dimensions.get("screen");
 
 // Note: In app.json , change the "scheme" to match your project name.
 const Home = () => {
   const router = useRouter();
-  const { startQuiz, highScore } = useQuiz();
+  const { startQuiz, highScores, scoreHistories } = useQuiz();
   const [categoryID, setCategoryID] = useState("any");
   const [numQuestions, setNumQuestions] = useState(10);
+  const [difficulty, setDifficulty] = useState("any");
+  const [gameType, setGameType] = useState("any");
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    getQuizPreferences().then(({ difficulty, gameType }) => {
+      setDifficulty(difficulty);
+      setGameType(gameType);
+    });
+  }, []);
+
+  const handleSetDifficulty = (value) => {
+    setDifficulty(value);
+    setDifficultyPreference(value);
+  };
+
+  const handleSetGameType = (value) => {
+    setGameType(value);
+    setGameTypePreference(value);
+  };
 
   return (
     <View
-      className="items-center bg-[#0F084B] relative p-4 gap-y-4"
+      className="items-center bg-[#0F084B] relative p-4 gap-y-3"
       style={{ width: width, height: height }}
     >
       <View
         pointerEvents="none"
         className="bg-[#A6CFD5] w-[40rem] h-[40rem] rounded-full absolute -top-[400px] m-auto"
       />
-      <Text className="absolute p-4 text-[#0F084B] text-2xl font-display top-20">
+      <Text className="absolute p-4 text-[#0F084B] text-2xl font-display top-16">
         TRIVIA HUB
       </Text>
-      <View className="z-10 shadow-md">
+      <View className="z-10 shadow-md mt-28">
         <TriviaSetup
           numQuestions={numQuestions}
           setNumQuestions={setNumQuestions}
-          highScore={highScore}
+          difficulty={difficulty}
+          highScore={highScores[difficulty]}
+          scoreHistory={scoreHistories[difficulty]}
         />
       </View>
-      <Text className="font-mono text-[#A6CFD5] text-xs uppercase tracking-widest">
-        Select a category
+      <AdvancedOptions
+        difficulty={difficulty}
+        setDifficulty={handleSetDifficulty}
+        gameType={gameType}
+        setGameType={handleSetGameType}
+      />
+      <Text className="font-mono text-[#A6CFD5] text-xs uppercase tracking-widest mt-6">
+        Select a category ({CATEGORIES.length - 1})
       </Text>
       <CategorySelect categoryID={categoryID} setCategoryID={setCategoryID} />
       <TouchableOpacity
@@ -52,8 +85,13 @@ const Home = () => {
           if (isLoading) return;
           setIsLoading(true);
           try {
-            const data = await getQuestions(numQuestions, categoryID);
-            startQuiz(data?.results ?? []);
+            const data = await getQuestions(
+              numQuestions,
+              categoryID,
+              difficulty,
+              gameType,
+            );
+            startQuiz(data?.results ?? [], difficulty);
             router.push("/quiz");
           } finally {
             setIsLoading(false);
@@ -68,7 +106,8 @@ const Home = () => {
         </Text>
       </TouchableOpacity>
       <Text className="font-mono text-[#A6CFD5]/50 text-[10px] text-center">
-        Questions provided by Open Trivia Database (opentdb.com), licensed under CC BY-SA 4.0
+        Questions provided by Open Trivia Database (opentdb.com), licensed under
+        CC BY-SA 4.0
       </Text>
     </View>
   );
