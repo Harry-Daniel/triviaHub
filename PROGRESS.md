@@ -15,7 +15,6 @@
 - `app/_layout.jsx` — root layout. Loads fonts (`useFonts` + `expo-splash-screen` hold/hide pattern), wraps the app in `SafeAreaProvider` and `QuizProvider`.
 - `app/index.jsx` — Home screen: quiz setup (question count + category), "Start Quiz" button, high score display, OpenTDB attribution footer.
 - `app/quiz/index.jsx` — the quiz-taking screen: one question at a time, answer reveal, progress hub, and an inline "quiz complete" results state (no separate results route).
-- `app/profile/index.jsx` — placeholder route proving file-based routing + param passing. No UI links to it anymore (no nav bar); deferred to v2, see below.
 - `components/triviaSetup.jsx` — question count picker (10/15/20) + live High Score tile (now reads real persisted value).
 - `components/categorySelect.jsx` — scrollable list of 24 OpenTDB categories with icons.
 - `components/QuestionHub.jsx` — the quiz screen's signature progress indicator: a row of nodes (one per question) showing upcoming/current/correct/incorrect state.
@@ -41,9 +40,9 @@
 
 1. **Safe-area pass on Home/Profile** — these still use `Dimensions.get("screen")` directly (same pattern the quiz screen had before the nav-bar-overlap fix). Not reported broken yet, but same latent risk.
 
-## v2 (deliberately deferred)
-- **Real Profile screen** — `app/profile/index.jsx` is currently just a routing demo with no way to reach it in the UI (no nav bar — decided the app doesn't need one). Revisit alongside score history.
-- **Score history** — currently only the single best percentage is persisted (`utilities/highScore.js`); no record of past attempts. Natural pairing with a real Profile screen.
+## v2 (in progress)
+- **Difficulty & game type selection** — Home now exposes a collapsible "Advanced Options" section (`components/AdvancedOptions.jsx`) to pick OpenTDB `difficulty` (easy/medium/hard) and `type` (multiple/boolean), passed through to `utilities/getQuestions.js`.
+- **Per-difficulty score history** — `utilities/highScore.js` now tracks high score + last-5-games history separately for each difficulty bucket (any/easy/medium/hard). Tap the High Score tile on Home to view history for the currently selected difficulty.
 
 ## Gotchas learned this round (worth remembering before touching deps again)
 - **`bun add` ignores Expo's SDK pinning.** It grabbed `expo-splash-screen@57.0.5` and would have grabbed `async-storage@3.1.1` — both are for the *next* Expo SDK, not SDK 56. Always cross-check against `https://raw.githubusercontent.com/expo/expo/sdk-56/packages/expo/bundledNativeModules.json` (or use `expo install`) before trusting `bun add`'s resolved version for any Expo-adjacent native package.
