@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
-  Dimensions,
   FlatList,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
 import { useRouter } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import TriviaSetup from "../components/triviaSetup";
 import CategorySelect, { CATEGORIES } from "../components/categorySelect";
 import AdvancedOptions from "../components/AdvancedOptions";
@@ -20,11 +19,10 @@ import {
   setGameTypePreference,
 } from "../utilities/quizPreferences";
 
-const { width, height } = Dimensions.get("screen");
-
 // Note: In app.json , change the "scheme" to match your project name.
 const Home = () => {
   const router = useRouter();
+  const insets = useSafeAreaInsets();
   const { startQuiz, highScores, scoreHistories } = useQuiz();
   const [categoryID, setCategoryID] = useState("any");
   const [numQuestions, setNumQuestions] = useState(10);
@@ -51,8 +49,8 @@ const Home = () => {
 
   return (
     <View
-      className="items-center bg-[#0F084B] relative p-4 gap-y-3"
-      style={{ width: width, height: height }}
+      className="flex-1 items-center bg-[#0F084B] relative px-4 gap-y-3"
+      style={{ paddingTop: 16 + insets.top, paddingBottom: 16 + insets.bottom }}
     >
       <View
         pointerEvents="none"
@@ -61,7 +59,7 @@ const Home = () => {
       <Text className="absolute p-4 text-[#0F084B] text-2xl font-display top-16">
         TRIVIA HUB
       </Text>
-      <View className="z-10 shadow-md mt-28">
+      <View className="z-10 shadow-md mt-40">
         <TriviaSetup
           numQuestions={numQuestions}
           setNumQuestions={setNumQuestions}
@@ -79,7 +77,9 @@ const Home = () => {
       <Text className="font-mono text-[#A6CFD5] text-xs uppercase tracking-widest mt-6">
         Select a category ({CATEGORIES.length - 1})
       </Text>
-      <CategorySelect categoryID={categoryID} setCategoryID={setCategoryID} />
+      <View className="flex-1 w-full items-center">
+        <CategorySelect categoryID={categoryID} setCategoryID={setCategoryID} />
+      </View>
       <TouchableOpacity
         onPress={async () => {
           if (isLoading) return;
@@ -114,5 +114,3 @@ const Home = () => {
 };
 
 export default Home;
-
-const styles = StyleSheet.create({});

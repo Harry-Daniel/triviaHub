@@ -38,11 +38,14 @@
 
 ## What's Missing / Next Steps
 
-1. **Safe-area pass on Home/Profile** — these still use `Dimensions.get("screen")` directly (same pattern the quiz screen had before the nav-bar-overlap fix). Not reported broken yet, but same latent risk.
+1. **Play Store deployment** — `eas.json`'s `production` profile (App Bundle/AAB, no `buildType` override) is ready to use; still need a Play Console listing (store copy, screenshots, privacy policy — required since the app fetches from a third-party API and persists local data), a signed `production` EAS build, and `eas submit --platform android`.
+2. Home screen is fixed (see v2 below); no other known layout risk open right now.
 
-## v2 (in progress)
+## v2 (complete)
 - **Difficulty & game type selection** — Home now exposes a collapsible "Advanced Options" section (`components/AdvancedOptions.jsx`) to pick OpenTDB `difficulty` (easy/medium/hard) and `type` (multiple/boolean), passed through to `utilities/getQuestions.js`.
 - **Per-difficulty score history** — `utilities/highScore.js` now tracks high score + last-5-games history separately for each difficulty bucket (any/easy/medium/hard). Tap the High Score tile on Home to view history for the currently selected difficulty.
+- **Home screen responsiveness fix** — Home was a single fixed-height `View` sized from raw `Dimensions.get("screen")` with no scroll, so on shorter/notched/nav-bar-heavy devices the Start Quiz button and OpenTDB attribution footer could get pushed off-screen. Reworked into a fixed-header / scrollable-middle / fixed-footer flex layout (`useSafeAreaInsets` for top/bottom padding, only the category `FlatList` scrolls) so the button and attribution are always visible. See `CLAUDE.md` for the layout contract to preserve when touching `app/index.jsx` again.
+- **Android preview build** — first EAS preview build (internal APK) kicked off via `bunx eas-cli build --platform android --profile preview` to validate the above on a real device before considering v2 fully shipped.
 
 ## Gotchas learned this round (worth remembering before touching deps again)
 - **`bun add` ignores Expo's SDK pinning.** It grabbed `expo-splash-screen@57.0.5` and would have grabbed `async-storage@3.1.1` — both are for the *next* Expo SDK, not SDK 56. Always cross-check against `https://raw.githubusercontent.com/expo/expo/sdk-56/packages/expo/bundledNativeModules.json` (or use `expo install`) before trusting `bun add`'s resolved version for any Expo-adjacent native package.

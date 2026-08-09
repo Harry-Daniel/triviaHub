@@ -21,7 +21,7 @@ const TriviaSetup = ({
 
   return (
     <View>
-      <View className="w-96 h-20 bg-[#A6CFD5] mt-28 rounded-md justify-center flex flex-row gap-x-12 p-4 relative shadow-2xl shadow-blue-50">
+      <View className="w-96 h-20 bg-[#A6CFD5] rounded-md justify-center flex flex-row gap-x-12 p-4 relative shadow-2xl shadow-blue-50">
         <TouchableOpacity
           onPress={() => setShowQuestionOptions(!showQuestionOptions)}
           className="justify-center items-center"

@@ -148,8 +148,10 @@ export const CATEGORIES = [
 
 const CategorySelect = ({ categoryID, setCategoryID }) => {
   return (
-    <View className="h-[40vh]">
+    <View className="flex-1 w-full">
       <FlatList
+        className="flex-1"
+        contentContainerStyle={{ alignItems: "center" }}
         showsVerticalScrollIndicator={false}
         data={CATEGORIES}
         keyExtractor={(item) => item.id}
