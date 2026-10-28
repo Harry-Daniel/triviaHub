@@ -4,6 +4,10 @@ A trivia quiz app for Android and iOS, built with Expo and React Native. Choose 
 
 Questions come from the [Open Trivia Database](https://opentdb.com/).
 
+## Demo
+
+▶️ [Watch the demo video](https://drive.google.com/file/d/1tti2lYaKv1S7N0wPdN0mwTL5I-hKPpG9/view)
+
 <!-- Screenshots: add images to a docs/ folder and reference them here, e.g.
 <p align="center">
   <img src="docs/home.png" width="250" />
